@@ -146,10 +146,10 @@
                             </div>
 
                             <div>
-                                <h5 class="">{{ request.user.employee.first_name }} {{ request.user.employee.last_name }}</h5>
-                                <p class="text-muted mb-1">{{ request.user.employee.email }}</p>
-                                <p class="text-muted mb-0">Employee no: {{ request.user.employee.employee_id }}</p>
-                                <p class="text-muted mb-0">Id no: {{ request.user.employee.identification_number }}</p>
+                                <h5 class="">{{ get_employee.first_name }} {{ get_employee.last_name }}</h5>
+                                <p class="text-muted mb-1">{{ get_employee.email }}</p>
+                                <p class="text-muted mb-0">Employee no: {{ get_employee.employee_id }}</p>
+                                <p class="text-muted mb-0">Id no: {{ get_employee.identification_number }}</p>
                                 
                             </div>
                         </div>
@@ -232,96 +232,87 @@
         </div>
         <!-- end row -->
         
-    </div> <!-- container-fluid -->
+    </div> <!-- container-fluid  0763409727-->
 </div>
 
-<!-- update profile modal -->
+<!-- Update Profile Modal -->
 <div class="row">
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-
-                <!-- Scrollable modal -->
-                <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                <!-- Scrollable Modal -->
+                <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Scrollable Modal</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">
+                                    {{ get_employee.first_name }} {{ get_employee.last_name }} - Profile
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                <form>
+                                    <div class="mb-3">
+                                        <label>First Name</label>
+                                        <input type="text" class="form-control" value="{{ get_employee.first_name }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Last Name</label>
+                                        <input type="text" class="form-control" value="{{ get_employee.last_name }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" value="{{ get_employee.email }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Phone Number</label>
+                                        <input type="text" class="form-control" value="{{ get_employee.phone_number }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>ID Type</label>
+                                        <input type="text" class="form-control" value="{{ get_employee.id_type }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Identity Number</label>
+                                        <input type="text" class="form-control" value="{{ get_employee.identity_number }}">
+                                    </div>
+                                   
+                                    <div class="mb-3">
+                                        <label>SSN</label>
+                                        <input type="text" class="form-control" value="{{ get_employee.ssn }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>TPIN</label>
+                                        <input type="text" class="form-control" value="{{ get_employee.tpin }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>NHIMA Number</label>
+                                        <input type="text" class="form-control" value="{{ get_employee.nhima_number }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label>ID Front</label>
+                                        <input type="file" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>ID Back</label>
+                                        <input type="file" class="form-control">
+                                    </div>
+                                </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+                                <button type="button" class="btn btn-primary">Save Changes</button>
+                            </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
-
             </div>
-            <!-- end card body -->
         </div>
-        <!-- end card -->
     </div>
-    <!-- end col -->
-
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                
-                <div>
-                    
-        
-                    
-                    <!-- Static Backdrop Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>I will not close if you click outside me. Don't even try to press escape key.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Understood</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-
-            </div>
-            <!-- end card body -->
-        </div>
-        <!-- end card -->
-    </div>
-    <!-- end col -->
 </div>
-
-<!-- end of update profile modal -->
 
 
 <!-- settings modal -->

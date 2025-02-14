@@ -54,4 +54,10 @@ def salary_advance_view(request, id):
 
 @login_required(login_url='frontend:login')
 def user_profile(request):
-    return render(request, 'frontend/base/user-profile.html')
+    user = request.user.id
+    get_employee = Employee.objects.get(user_id = user)
+    context = {
+        'get_employee': get_employee
+    }
+
+    return render(request, 'frontend/base/user-profile.html', context)

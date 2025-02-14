@@ -23,5 +23,7 @@ def user_logout(request):
     return redirect('frontend:login')
 
 
+def update_profile(request):
+    pass
 
 

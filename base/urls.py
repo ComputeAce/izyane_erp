@@ -2,6 +2,7 @@ from django.urls import path
 from .views.base_views import (
     login,
     user_logout,
+    update_profile,
 
 )
 
@@ -25,6 +26,7 @@ urlpatterns = [
     #base
     path('login', login, name='login'),
     path('user_logout/', user_logout, name='user_logout'),
+    path('update_profile/', update_profile, name='update_profile'),
 
     #HR
     path('create_employee/', create_employee, name='create_employee'),
