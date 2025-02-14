@@ -1,0 +1,55 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Users</h4>
+                    
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Department</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                    <td>{{ user.position }}</td>
+                                    <td>{{ user.department }}</td>
+                                    <td>{{ user.age }}</td>
+                                    <td>{{ user.start_date }}</td>
+                                    <td>${{ user.salary }}</td>
+                                    <td>
+                                        <a href="{% url 'frontend:profile' user.id %}" style="text-decoration: none;">
+                                            <i class="bx bx-show-alt" style="color: blue; font-size: 2rem; transform: rotate(15deg);"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
+</div>
+{% endblock %}

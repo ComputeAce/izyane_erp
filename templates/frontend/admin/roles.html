@@ -1,0 +1,110 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<div class="page-content">
+    <div class="container-fluid">   
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Update User Roles</h4>
+                        
+
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                            <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Department</th>
+                                <th>Start Date</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td>EMP001</td> <!-- Added Employee ID cell -->
+                                <td>Tiger Nixon</td>
+                                <td>System Architect</td>
+                                <td>Edinburgh</td>
+                                <td>2011/04/25</td>
+                                <td>
+                                    <button 
+                                    type="button" 
+                                    class="btn p-0" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#exampleModal" 
+                                    data-bs-whatever="@getbootstrap" 
+                                    style="border: none; background: none; text-decoration: none;"
+                                >
+                                    <i 
+                                        class="bx bx-edit" 
+                                        style="color: blue; font-size: 2rem; transform: rotate(15deg);"
+                                    ></i>
+                                </button>
+                                
+                                </td>
+                            </tr>
+                    
+                            </tbody>
+
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+                            
+                                        
+                                        <div>
+                                   
+                                        
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Update User Roles</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form>
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name" class="col-form-label">User Id:</label>
+                                                                    <input type="text" class="form-control" id="recipient-name">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="message-select" class="col-form-label">Message:</label>
+                                                                    <select class="form-select" id="message-select">
+                                                                        <option value="" selected disabled>Select a message</option>
+                                                                        <option value="1">Message 1</option>
+                                                                        <option value="2">Message 2</option>
+                                                                        <option value="3">Message 3</option>
+                                                                    </select>
+                                                                </div>
+                                                                
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end preview-->
+
+                                    </div>
+                                    <!-- end card body -->
+                                </div>
+                                <!-- end card -->
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+        
+    </div>
+</div>
+    
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<div class="page-content">
+    <div class="container-fluid">   
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">All Users</h4>
+                        
+
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                            <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Department</th>
+                                <th>Start Date</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>     
+                              
+                            {% for employee in get_employees  %}        
+                            <tr>
+                                <td>{{ employee.employee_id }}</td> 
+                                <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+                                <td>{{ employee.position }}</td>
+                                <td>{{ employee.department }}</td>
+                                <td>{{ employee.user.date_joined |date:"M. d, Y" }}</td>
+                                <td>
+                                    <a href="{% url 'frontend:profile' employee.id %}" style="text-decoration: none;">
+                                        <i class="bx bx-show-alt" style="color: blue; font-size: 2rem; transform: rotate(15deg);"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+        
+    </div>
+</div>
+    
+{% endblock %}

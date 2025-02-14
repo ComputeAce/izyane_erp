@@ -1,0 +1,143 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+
+             
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert 
+                    {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% elif message.tags == 'warning' %}alert-warning{% else %}alert-secondary{% endif %}" 
+                    role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+
+
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Apply For Salary Advance</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
+                            <li class="breadcrumb-item active">Salary Advance Request</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <form action="{% url 'base:salary_advance_request'  %}" method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Salary Advance Request</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="amountNeeded" class="form-label">Amount Needed</label>
+                                        <input type="number" name="amount" class="form-control" id="amountNeeded" placeholder="Enter amount needed" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid amount.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="reason" class="form-label">Reason</label>
+                                        <textarea name="reason" class="form-control" id="reason" rows="3" placeholder="Enter reason for salary advance" required></textarea>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid reason.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 my-3">
+                                    <button class="btn btn-primary mx-3"> Submit </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </form>
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+<div class="page-content">
+    <div class="container-fluid">   
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">My Salary Advance Requests</h4>
+
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Amount Needed</th>
+                                    <th>Request Date</th>
+                                    <th>Status</th>
+                                    <th>Reason</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            {% for advc in user_salary_advc  %}                                                      
+                            <tbody>
+                                <tr>
+                                    <td>{{ advc.employee.first_name }} {{ advc.user.last_name }}</td>
+                                    <td>{{ advc.employee.position }}</td>
+                                    <td>{{ advc.amount }}</td>
+                                    <td>{{ advc.request_date }}</td>
+
+                                    <td>
+
+                                        {% if advc.approval_status == "Approved" %}
+                                        <span class="badge bg-success">{{ advc.approval_status }}</span>
+                                        {% elif advc.approval_status == "Rejected" %}
+                                            <span class="badge bg-danger">{{ advc.approval_status }}</span>
+                                        {% elif advc.approval_status == "Pending" %}
+                                            <span class="badge bg-warning text-dark">{{ advc.approval_status }}</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">{{ advc.approval_status }}</span>
+                                        {% endif %}
+
+                                    </td>
+                                    <td>{{ advc.reason }}</td>
+                                    <td>
+                                        <a href="{% url 'frontend:salary_advance_view' advc.id  %}" style="text-decoration: none;">
+                                            <i class="bx bx-show-alt" style="color: blue; font-size: 2rem; transform: rotate(15deg);"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                             {% endfor %}
+                        </table>
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div>
+</div>
+
+{% endblock %}

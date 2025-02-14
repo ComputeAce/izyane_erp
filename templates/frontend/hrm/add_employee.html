@@ -1,0 +1,304 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Add Employee</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
+                            <li class="breadcrumb-item active">Form Validation</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        <form action="{% url 'base:create_employee'  %} " method="POST"  enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} p-4 shadow-lg rounded-3" role="alert" style="font-size: 1.25rem;">
+                                        <h5>{{ message }}</h5>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            <h4 class="card-title">Basic Information</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom01" class="form-label">First name</label>
+                                            <input type="text" name="first_name" class="form-control" id="validationCustom01"
+                                                placeholder="First name" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a First Name.
+                                                </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom01" class="form-label">Middle name</label>
+                                            <input type="text" name="middle_name" class="form-control" id="validationCustom01"
+                                                placeholder="Middle name" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a Middle Name.
+                                                </div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Last name</label>
+                                            <input type="text" name="last_name" class="form-control" id="validationCustom02"
+                                                placeholder="Last name" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a Last Name.
+                                                </div> 
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Province</label>
+                                            <select name="province" class="form-select" id="validationCustom03" required>
+                                                <option selected disabled value="">Choose...</option>
+                                                <option value="Central">Central</option>
+                                                <option value="Copperbelt">Copperbelt</option>
+                                                <option value="Eastern">Eastern</option>
+                                                <option value="Luapula">Luapula</option>
+                                                <option value="Lusaka">Lusaka</option>
+                                                <option value="Muchinga">Muchinga</option>
+                                                <option value="Northern">Northern</option>
+                                                <option value="North-Western">North-Western</option>
+                                                <option value="Southern">Southern</option>
+                                                <option value="Western">Western</option>
+                                            </select>
+
+
+                                            <div class="invalid-feedback">
+                                                Please provide a valid Province.
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">City</label>
+                                            <input type="text" name="city" class="form-control" id="validationCustom02"
+                                                placeholder="City" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid City.
+                                                </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Phone Number</label>
+                                            <input type="number" name="phone_number" class="form-control" id="validationCustom02"
+                                                placeholder="Phone Number"  required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid Address.
+                                                </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Address</label>
+                                            <input name="address" class="form-control" id="validationCustom02" rows="3" placeholder="Address" required>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid Address.
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Email</label>
+                                            <input name="email" class="form-control" id="validationCustom02" rows="3" placeholder="Address" required>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid Email Address.
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                               
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div> <!-- end col -->
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Job Information</h4>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Work Type</label>
+                                            <select name="work_type" class="form-select" id="validationCustom02" required>
+                                                <option selected disabled value="">Select Work Type</option>
+                                                <option value="full-time">Full-Time</option>
+                                                <option value="part-time">Part-Time</option>
+                                                <option value="freelance">Freelance</option>
+                                                <option value="internship">Internship</option>
+                                            </select>
+                                                <div class="invalid-feedback">
+                                                    Please provide a Work Type.
+                                                </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Department</label>
+                                            <select name="department" class="form-select" id="validationCustom02" required>
+                                                <option selected disabled value="">Select Department</option>
+                                                <option value="hr">Human Resources</option>
+                                                <option value="it">Information Technology</option>
+                                                <option value="marketing">sales/marketing</option>
+            
+                                            </select>
+                                                <div class="invalid-feedback">
+                                                    Please provide a Department.
+                                                </div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Position</label>
+                                            <select name="position" class="form-select" id="validationCustom02" required>
+                                                <option selected disabled value="">Select Position</option>
+                                                <option value="developer-snr">developer-snr</option>
+                                                <option value="developer-jnr">developer-jrn</option>
+                                                <option value="developer-intern">developer-intern</option>
+                                                <option value="Admin">Admin</option>
+                                            </select>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid City.
+                                                </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Employee Id</label>
+                                            <input type="number" name="employee_id" class="form-control" id="validationCustom02"
+                                                placeholder="" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a Employee Id.
+                                                </div> 
+                                        </div>
+                                    </div>
+
+                                </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div> <!-- end col -->
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Staff Identity</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom01" class="form-label">Identification Type</label>
+                                            <select name="identification_type" class="form-select" id="validationCustom01">
+                                                <option selected disabled value="">Choose NRC or Passport</option>
+                                                <option value="nrc">National Registration Card (NRC)</option>
+                                                <option value="passport">Passport</option>
+                                            </select>
+                        
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom01" class="form-label">Identification Number</label>
+                                            <input type="number" name="identification_number" class="form-control" id="validationCustom01"
+                                                placeholder="Identification Number">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom01" class="form-label">ID Front</label>
+                                            <input type="file" name="id_front" class="form-control" id="validationCustom01">
+                                           
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">ID Back</label>
+                                            <input type="file" name="id_back" class="form-control" id="validationCustom02">
+                                            <div class="invalid-feedback">
+                                                Please upload the ID back.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom01" class="form-label">Nhima No:</label>
+                                            <input type="number" name="nhima_number" class="form-control" id="validationCustom01">
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">T-pin</label>
+                                            <input type="number" name="t_pin" class="form-control" id="validationCustom02">
+                                        
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Social Security Number</label>
+                                            <input type="number" name="ssn" class="form-control" id="validationCustom02">
+                                            
+                                        </div>
+                                    </div>
+
+                                <div class="mb-3 my-3">
+                                    <button class="btn btn-primary mx-3"> Submit </button>
+                                </div>
+                                    
+                                </div>    
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div> <!-- end col -->
+                
+            </div>
+        </form>
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+{% endblock  %}
+    

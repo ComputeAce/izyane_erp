@@ -1,0 +1,218 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Apply For Leave</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
+                            <li class="breadcrumb-item active">Form Validation</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="mb-3 my-3">
+            <button class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            data-bs-whatever="@getbootstrap"> View Accumulated Leaves </button>
+        </div>
+                    
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                                
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title mb-4">Pie Chart</h4>
+        
+                                        <div class="row text-center">
+                                            <div class="col-4">
+                                                <h5 class="mb-0">2536</h5>
+                                                <p class="text-muted text-truncate">Activated</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5 class="mb-0">69421</h5>
+                                                <p class="text-muted text-truncate">Pending</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5 class="mb-0">89854</h5>
+                                                <p class="text-muted text-truncate">Deactivated</p>
+                                            </div>
+                                        </div>
+        
+                                        <canvas id="pie" data-colors='["--bs-success", "#ebeff2"]' class="chartjs-chart"></canvas>
+        
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+    
+                        </div> <!-- end row -->
+        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Send message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form action="{% url 'base:leave_request' %}" method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            
+                            {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert 
+                                    {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% elif message.tags == 'warning' %}alert-warning{% else %}alert-secondary{% endif %}" 
+                                    role="alert">
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+
+
+                            <h4 class="card-title">Leave Information</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom01" class="form-label">From</label>
+                                            <input type="date" name="start_date" class="form-control" id="validationCustom01"
+                                                placeholder="Enter start date" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid start date.
+                                                </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="validationCustom01" class="form-label">To</label>
+                                            <input type="date" name="end_date" class="form-control" id="validationCustom01"
+                                                placeholder="To Date" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid To date.
+                                                </div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="validationCustom03" class="form-label">Leave Type</label>
+                                            <select name="leave_type" class="form-select" id="validationCustom03" required>
+                                                <option selected disabled value="">Choose Leave Type...</option>
+                                                <option value="Annual Leave">Annual Leave</option>
+                                                <option value="Sick Leave">Sick Leave</option>
+                                                <option value="Maternity Leave">Maternity Leave</option>
+                                                <option value="Paternity Leave">Paternity Leave</option>
+                                                <option value="Study Leave">Study Leave</option>
+                                                <option value="Compassionate Leave">Compassionate Leave</option>
+                                                <option value="Unpaid Leave">Unpaid Leave</option>
+                                            </select>
+                                            
+
+
+                                            <div class="invalid-feedback">
+                                                Please provide a valid Leave Type.
+                                            </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="validationCustom02" class="form-label">Reason</label>
+                                            <textarea name="reason" class="form-control" id="validationCustom02" rows="3" placeholder="Enter Leave Reason" required></textarea>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid Reason.
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="mb-3 my-3">
+                                        <button class="btn btn-primary mx-3"> Submit </button>
+                                    </div>
+                                    
+                                </div>
+                               
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </form>
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+<div class="page-content">
+    <div class="container-fluid">   
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">My Leave Requests</h4>
+                        
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Leave Type</th>
+                                    <th>Leave Dates</th>
+                                    <th>Request Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                {% for leave in user_leaves %}
+                                <tr>
+                                    <td>{{ leave.employee.first_name }} {{ leave.employee.last_name }}</td>
+                                    <td>{{ leave.employee.position }}</td>
+                                    <td>{{ leave.leave_type }}</td>
+                                    <td>{{ leave.start_date }} - {{ leave.end_date }}</td>
+                                    <td>{{ leave.created_at|date:"M. d, Y" }}</td>
+                                    <td><span class="badge bg-warning">Pending</span></td>
+                                    <td>
+                                        <a href="{% url 'frontend:leave_view' leave.id %} " style="text-decoration: none;">
+                                            <i class="bx bx-show-alt" style="color: blue; font-size: 2rem; transform: rotate(15deg);"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+        
+    </div>
+</div>
+    
+{% endblock  %}
+    

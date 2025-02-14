@@ -1,0 +1,127 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<div class="page-content">
+    <div class="container-fluid">   
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">All Leaves</h4>
+                        
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                            {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Leave Type</th>
+                                    <th>Leave Dates</th>
+                                    <th>Request Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                {% for leave in leaves  %}
+                                    
+                                <tr>
+                                    <td>{{ leave.employee.first_name }} {{ leave.employee.last_name }}</td>
+                                    <td>{{ leave.employee.position }}</td>
+                                    <td>{{ leave.leave_type }}</td>
+                                    <td>{{ leave.start_date |date:"M. d, Y" }} - {{ leave.end_date |date:"M. d, Y" }}</td>
+                                    <td>{{ leave.created_at |date:"M. d, Y" }}</td>
+                                    <td>
+                                        {% if leave.status == "Approved" %}
+                                            <span class="badge bg-success">{{ leave.status }}</span>
+                                        {% elif leave.status == "Rejected" %}
+                                            <span class="badge bg-danger">{{ leave.status }}</span>
+                                        {% elif leave.status == "Pending" %}
+                                            <span class="badge bg-warning text-dark">{{ leave.status }}</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">{{ leave.status }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a data-bs-toggle="modal" data-bs-target="#advanceModal{{ advance.id }}" style="text-decoration: none;">
+                                            <i class="bx bx-show-alt" style="color: blue; font-size: 2rem; transform: rotate(15deg);"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                 <!-- Unique Modal for each advance request -->
+                                 <div class="modal fade" id="advanceModal{{ advance.id }}" tabindex="-1" role="dialog" aria-labelledby="modalTitle{{ advance.id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitle{{ advance.id }}">
+                                                    {{ leave.employee.first_name }} {{ leave.employee.last_name }} - Salary Advance Details
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Employee Name</label>
+                                                    <input type="text" class="form-control" value="{{ leave.employee.first_name }} {{ leave.employee.last_name }}" readonly>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Position</label>
+                                                    <input type="text" class="form-control" value="{{ leave.employee.position }}" readonly>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Net Pay</label>
+                                                    <input type="text" class="form-control" value="K 5000.00" readonly>
+                                                </div>
+                                                
+                                                <div class="mb-3">
+                                                    <label class="form-label">Status</label>
+                                                    <input type="text" class="form-control" value="{{ leave.status }}" readonly>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Reason</label>
+                                                    <textarea class="form-control" rows="3" readonly>{{ leave.reason }}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                            
+                                                {% if leave.status == "pending" %}
+                                                    <a href="{% url 'base:vett_leave_request' leave.id %}?status=Approved" class="btn btn-primary">
+                                                        Approve
+                                                    </a>
+                                            
+                                                    <a href="{% url 'base:vett_leave_request' leave.id %}?status=Rejected" class="btn btn-danger">
+                                                        Reject
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% endfor %}
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+    
+{% endblock  %}
+    

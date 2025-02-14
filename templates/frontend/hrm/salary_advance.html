@@ -1,0 +1,138 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<div class="page-content">
+    <div class="container-fluid">   
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Salary Advance</h4>
+                        
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Net Pay</th>
+                                    <th>Advance Amount</th>
+                                    <th>Request Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for advance in advances %}
+                                <tr>
+                                    <td>{{ advance.employee.first_name }} {{ advance.employee.last_name }}</td>
+                                    <td>{{ advance.employee.position }}</td>
+                                    <td>K 5000.00 </td>  
+                                    <td>{{ advance.amount }}</td>
+                                    <td>{{ advance.request_date }}</td>
+                                    <td>
+                                        {% if advance.approval_status == "Approved" %}
+                                            <span class="badge bg-success">{{ advance.approval_status }}</span>
+                                        {% elif advance.approval_status == "Rejected" %}
+                                            <span class="badge bg-danger">{{ advance.approval_status }}</span>
+                                        {% elif advance.approval_status == "Pending" %}
+                                            <span class="badge bg-warning text-dark">{{ advance.approval_status }}</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">{{ advance.approval_status }}</span>
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td>
+                                        <a data-bs-toggle="modal" data-bs-target="#advanceModal{{ advance.id }}" style="text-decoration: none;">
+                                            <i class="bx bx-show-alt" style="color: blue; font-size: 2rem; transform: rotate(15deg);"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <!-- Unique Modal for each advance request -->
+                                <div class="modal fade" id="advanceModal{{ advance.id }}" tabindex="-1" role="dialog" aria-labelledby="modalTitle{{ advance.id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitle{{ advance.id }}">
+                                                    {{ advance.employee.first_name }} {{ advance.employee.last_name }} - Salary Advance Details
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Employee Name</label>
+                                                    <input type="text" class="form-control" value="{{ advance.employee.first_name }} {{ advance.employee.last_name }}" readonly>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Position</label>
+                                                    <input type="text" class="form-control" value="{{ advance.employee.position }}" readonly>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Net Pay</label>
+                                                    <input type="text" class="form-control" value="K 5000.00" readonly>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Advance Amount</label>
+                                                    <input type="text" class="form-control" value="K {{ advance.amount }}" readonly>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Request Date</label>
+                                                    <input type="text" class="form-control" value="{{ advance.request_date }}" readonly>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Approval Status</label>
+                                                    <input type="text" class="form-control" value="{{ advance.approval_status }}" readonly>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Reason</label>
+                                                    <textarea class="form-control" rows="3" readonly>{{ advance.reason }}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                            
+                                                {% if advance.approval_status == "pending" %}
+                                                    <a href="{% url 'base:vett_salary_advc_request' advance.id %}?status=Approved" class="btn btn-primary">
+                                                        Approve
+                                                    </a>
+                                            
+                                                    <a href="{% url 'base:vett_salary_advc_request' advance.id %}?status=Rejected" class="btn btn-danger">
+                                                        Reject
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

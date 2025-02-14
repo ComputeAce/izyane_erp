@@ -1,0 +1,164 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- Start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Leave Commutation</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Leave Commutation</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End page title -->
+
+        
+        <div class="mb-3 my-3">
+            <button class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            data-bs-whatever="@getbootstrap"> View Accumulated Leaves </button>
+        </div>
+                    
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                                
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title mb-4">Pie Chart</h4>
+        
+                                        <div class="row text-center">
+                                            <div class="col-4">
+                                                <h5 class="mb-0">2536</h5>
+                                                <p class="text-muted text-truncate">Activated</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5 class="mb-0">69421</h5>
+                                                <p class="text-muted text-truncate">Pending</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5 class="mb-0">89854</h5>
+                                                <p class="text-muted text-truncate">Deactivated</p>
+                                            </div>
+                                        </div>
+        
+                                        <canvas id="pie" data-colors='["--bs-success", "#ebeff2"]' class="chartjs-chart"></canvas>
+        
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+    
+                        </div> <!-- end row -->
+        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Send message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Apply for Leave -->
+        <div class="card my-4">
+            <div class="card-body">
+                <h4 class="card-title">Apply for Leave Commutation</h4>
+                <form class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="days-to-sell" class="form-label">Number of Days to Sell</label>
+                                <input type="number" class="form-control" id="days-to-sell" placeholder="Enter number of leave days to sell" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid number of days.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="reason" class="form-label">Reason</label>
+                                <textarea class="form-control" id="reason" rows="3" placeholder="Enter reason for selling leave days" required></textarea>
+                                <div class="invalid-feedback">
+                                    Please provide a reason for your leave commutation.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" type="submit">Submit Application</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Leave Commutation History -->
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Leave Commutation History</h4>
+
+                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Days Sold</th>
+                            <th>Leave Amount</th>
+                            <th>Reason</th>
+                            <th>Request Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example data for leave commutation -->
+                        <tr>
+                            <td>Donna Snider</td>
+                            <td>2</td>
+                            <td>$400</td> <!-- Assuming $200 per day for sick leave -->
+                            <td>Medical treatment</td>
+                            <td>2025/02/09</td>
+                            <td><span class="badge bg-success">Approved</span></td>
+                            <td>
+                                <a href="/" style="text-decoration: none;">
+                                    <i class="bx bx-show-alt" style="color: blue; font-size: 2rem;"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>5</td>
+                            <td>$1000</td> <!-- Assuming $200 per day for annual leave -->
+                            <td>Family vacation</td>
+                            <td>2025/02/25</td>
+                            <td><span class="badge bg-warning">Pending</span></td>
+                            <td>
+                                <a href="/" style="text-decoration: none;">
+                                    <i class="bx bx-show-alt" style="color: blue; font-size: 2rem;"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> <!-- container-fluid -->
+</div> <!-- End Page-content -->
+
+{% endblock %}

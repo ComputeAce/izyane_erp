@@ -1,0 +1,116 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Leave Details</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Leaves</a></li>
+                            <li class="breadcrumb-item active">{{ user_leave.employee.first_name }} {{ user_leave.employee.last_name }} Leave</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+           
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body border-bottom">
+                        <div class="d-flex">
+                            <img src="assets/images/companies/wechat.svg" alt="" height="50">
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="fw-semibold">{{ user_leave.employee.first_name }} {{ user_leave.employee.last_name }}</h5>
+                                <ul class="list-unstyled hstack gap-2 mb-0">
+                                    <li>
+                                        <i class="bx bx-building-house"></i> <span class="text-muted">{{ user_leave.employee.position }}</span>
+                                    </li>
+                                    <li>
+                                        <i class="bx bx-map"></i> <span class="text-muted">{{ user_leave.employee.address }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                       
+                        <div class="col-xl-10">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="fw-semibold">Leave Overview</h5>
+            
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="col">Leave Type</th>
+                                                    <td scope="col">{{ user_leave.leave_type }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Duration</th>
+                                                    <td>{{ user_leave.end_date|date:"M d, Y" }} - {{ user_leave.start_date|date:"M d, Y" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Approval Status</th>
+                                                    <td><span class="badge badge-soft-{{ user_leave.status|lower }}">{{ user_leave.status|capfirst }}</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Leave Start Date</th>
+                                                    <td>{{ user_leave.start_date|date:"M d, Y" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Leave End Date</th>
+                                                    <td>{{ user_leave.end_date|date:"M d, Y" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Status</th>
+                                                    <td><span class="badge badge-soft-info">{{ user_leave.status|capfirst }}</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Request Date</th>
+                                                    <td>{{ user_leave.created_at|date:"M d, Y" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Reason</th>
+                                                    <td>{{ user_leave.reason }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="flex">
+                                        <a class="btn btn-success">
+                                            Approve
+                                        </a>
+
+                                        <a class="btn btn-danger">
+                                            Reject
+                                        </a>
+
+                                        <a class="btn btn-primary" href="{% url 'frontend:leave_request' %}">
+                                            Back
+                                        </a>
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+    </div> <!-- container-fluid -->
+</div><!-- End Page-content -->
+    
+{% endblock %}

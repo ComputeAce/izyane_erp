@@ -1,0 +1,303 @@
+{% extends "base/base.html" %}
+{% load static  %}
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Profile</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Contacts</a></li>
+                            <li class="breadcrumb-item active">Profile</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+                  
+            
+            <div class="col-xl-8">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium mb-2">Accumulated Leaves</p>
+                                        <h4 class="mb-0">125</h4>
+                                    </div>
+
+                                    <div class="flex-shrink-0 align-self-center">
+                                        <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                            <span class="avatar-title">
+                                                <i class="bx bx-check-circle font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium mb-2">Leave Taken</p>
+                                        <h4 class="mb-0">12</h4>
+                                    </div>
+
+                                    <div class="flex-shrink-0 align-self-center">
+                                        <div class="avatar-sm mini-stat-icon rounded-circle bg-primary">
+                                            <span class="avatar-title">
+                                                <i class="bx bx-hourglass font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium mb-2">Advance Balance </p>
+                                        <h4 class="mb-0">K36,524</h4>
+                                    </div>
+
+                                    <div class="flex-shrink-0 align-self-center">
+                                        <div class="avatar-sm mini-stat-icon rounded-circle bg-primary">
+                                            <span class="avatar-title">
+                                                <i class="bx bx-package font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Leaves</h4>
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                            <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for leave in get_emp_leaves  %}
+                            <tr>
+                                <td>{{ leave.employee.employee_id }}</td> 
+                                <td>{{ leave.employee.first_name }} {{ Leave.employee.first_name }}</td>
+                                <td>{{ leave.employee.position }}</td>
+                                <td>{{ leave.status}}</td>
+                                <td> {{leave.created_at |date:"M. d, Y" }}</td>
+                                <td>
+                                    <a href="{% url 'frontend:leave_view' leave.id %}" style="text-decoration: none;">
+                                        <i class="bx bx-show-alt" style="color: blue; font-size: 2rem; transform: rotate(15deg);"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            {% endfor %} 
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Salary Advance</h4>
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                            <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Department</th>
+                                <th>Start Date</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            
+                            {% if request.user.employee.role == "Admin" %}
+                                                            
+                                {% for advc in get_emp_sal_advcs %}
+                    
+                                <tr>
+                                    <td>{{ advc.employee.employee_id }}</td> 
+                                    <td>{{ advc.employee.first_name }} {{ advc.employee.last_name }}</td>
+                                    <td>{{ advc.employee.position }}</td>
+                                    <td>{{ advc.approval_status }}</td>
+                                    <td>{{ advc.request_date }}</td>
+                                    <td>
+                                        <a href="#" style="text-decoration: none;">
+                                            <i class="bx bx-show-alt" style="color: blue; font-size: 2rem; transform: rotate(15deg);"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% endif %}
+                    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4">
+                <div class="card overflow-hidden">
+                    <div class="bg-primary-subtle">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="text-primary p-3">
+                                    <h5 class="text-primary">Welcome Back !</h5>
+                                    <p>It will seem like simplified</p>
+                                </div>
+                            </div>
+                            <div class="col-5 align-self-end">
+                                <img src="{% static 'assets/images/profile-img.png' %} " alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="avatar-md profile-user-wid mb-4">
+                                    <img src="{% static 'assets/images/users/avatar-1.jpg' %}" alt="" class="img-thumbnail rounded-circle">
+                                </div>
+                                <h5 class="font-size-15 text-truncate">{{ get_employee.first_name }} {{ get_employee.last_name }}</h5>
+                                <p class="text-muted mb-0 text-truncate">{{ get_employee.position }}</p>
+                            </div>
+
+                            <div class="col-sm-8">
+                                <div class="pt-4">
+                                   
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="font-size-15">Last Login</h5>
+                                            <p class="text-muted mb-0">{{ get_employee.user.last_login |date:"M. d, Y" }}</p>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="mt-4">
+                                        <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">Update User  <i class="mdi mdi-arrow-right ms-1"></i></a>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="card">
+                                                <div class="card-body">
+            
+                                                    <!-- Scrollable modal -->
+                                                    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalScrollableTitle">Scrollable Modal</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                                                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                                                                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                                                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                                                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                                                                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                                                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                                                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                                                                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                                                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                                                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                                                                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                                                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                                                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                                                                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                                                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                                                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                                                                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                            </div><!-- /.modal-content -->
+                                                        </div><!-- /.modal-dialog -->
+                                                    </div><!-- /.modal -->
+            
+                                                </div>
+                                                <!-- end card body -->
+                                            </div>
+                                            <!-- end card -->
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end card -->
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Personal Information</h4>
+
+                        <p class="text-muted mb-4">Hi I'm {{ get_employee.first_name }} {{ get_employee.last_name }} has been the industry's standard dummy text To an English person, it will seem like simplified English, as a skeptical Cambridge.</p>
+                        <div class="table-responsive">
+                            <table class="table table-nowrap mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Username :</th>
+                                        <td>{{ get_employee.user.username }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Mobile :</th>
+                                        <td>{{ get_employee.phone_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">E-mail :</th>
+                                        <td>{{ get_employee.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Address :</th>
+                                        <td>{{ get_employee.address}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- end card -->
+            </div>  
+        </div>
+        <!-- end row -->
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+{% endblock  %}
+    
