@@ -1,5 +1,5 @@
 {% extends "base/base.html" %}
-
+{% load static %}
 
 {% block content %}
 <div class="page-content">
@@ -159,10 +159,8 @@
 
                                 <div class="col-sm-6">
                                     <div>
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModalScrollable">
+                                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#SettingsModalScrollable">
                                             Settings
-
-
                                         </button>
                                     </div>
                                 </div>
@@ -325,67 +323,104 @@
 
 
 
-<!-- Settings Modal -->
 <div class="row">
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-
-                <!-- Scrollable Modal -->
-                <div class="modal fade" id="settingsModalScrollable" tabindex="-1" aria-labelledby="settingsModalScrollableTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal fade modal-xl" id="SettingsModalScrollable" tabindex="-1" aria-labelledby="SettingsModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
-
-                            <!-- Modal Header -->
                             <div class="modal-header">
-                                <h4 class="modal-title" id="settingsModalScrollableTitle">Change Your Password</h4>
+                                <h5 class="modal-title" id="SettingsModalScrollableTitle">{{ get_employee.first_name }} {{ get_employee.last_name }} - Settings</h5></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-
-                            <!-- Modal Body -->
                             <div class="modal-body">
-                                <div id="response-message" class="text-danger"></div>
+                               <div class="row">
 
-                                <form id="change-password-form" method="POST" action="{% url 'base:submit_change_password' %}">
-                                    {% csrf_token %}
+                                    <div class="col-lg-4">
+                                        <h4 class="my-2">Update Password</h4>
+                                        <div id="response-message" class="text-danger">
+                                        </div>
+                                        
+                                        <form id="change-password-form" method="POST" action="{% url 'base:submit_change_password' %}">
+                                            {% csrf_token %}
+                                            <div class="single-form">
+
+                                                <div class="my-4" id="password-feedback" style="margin-top: 5px; font-size: 14px;"></div>
+                                                <label class="form-label"> Current Password </label>
+                                                <input type="password" id="current_password" class="form-control" name="current_password" placeholder="Enter Your Current Password" required>
+                                            </div>
+                                            <div class="single-form" id="new-password-section" style="display: none;">
+                                                <p>New Password</p>
+                                                <input type="password" id="new_password" class="form-control" name="new_password" placeholder="********" required>
+                                            </div>
+                                            <div class="single-form" id="confirm-new-password-section" style="display: none;">
+                                                <p>Confirm New Password</p>
+                                                <input type="password" id="confirm_new_password" class="form-control" name="confirm_new_password" placeholder="********" required>
+                                            </div>
+                                            <div class="my-4" id="password-match-feedback" style="margin-top: 5px; font-size: 14px;"></div>
+                                            <button type="button" id="submitBtn" class="btn btn-primary" disabled>Update</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Another Profile Picture</label>
+                                
+                                        {% if get_employee.second_profile_picture %}
+                                            <div>
+                                                <!-- Display the second profile picture if available -->
+                                                <img id="previewFront2" src="{{ get_employee.second_profile_picture.url }}" 
+                                                     alt="Second Profile Picture" class="img-thumbnail" 
+                                                     style="width: 150px; height: 100px; cursor: pointer;" 
+                                                     onclick="document.getElementById('idFrontInput2').click();">
+                                                <!-- Hidden file input for second profile picture upload -->
+                                                <input type="file" name="second_profile_picture" class="form-control d-none" id="idFrontInput2" accept="image/*" onchange="previewProfilePic(event, 'previewFront2')">
+                                            </div>
+                                        {% else %}
+                                            <!-- Default second profile picture when none exists -->
+                                            <div>
+                                                <img id="previewFront2" src="{% static 'assets/logo/default-profile.png' %}" 
+                                                     alt="Default Second Profile Picture" class="img-thumbnail" 
+                                                     style="width: 150px; height: 100px; cursor: pointer;" 
+                                                     onclick="document.getElementById('idFrontInput2').click();">
+                                                <!-- Hidden file input for second profile picture upload -->
+                                                <input type="file" name="second_profile_picture" class="form-control d-none" id="idFrontInput2" accept="image/*" onchange="previewProfilePic(event, 'previewFront2')">
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                     
-                                    <div class="mb-3">
-                                        <label>Current Password</label>
-                                        <input type="password" id="current_password" class="form-control" name="current_password" placeholder="********" required>
-                                        <div id="password-feedback" class="form-text text-danger" style="font-size: 14px;"></div>
-                                    </div>
-
-                                    <div class="mb-3" id="new-password-section" style="display: none;">
-                                        <label>New Password</label>
-                                        <input type="password" id="new_password" class="form-control" name="new_password" placeholder="********" required>
-                                    </div>
-
-                                    <div class="mb-3" id="confirm-new-password-section" style="display: none;">
-                                        <label>Confirm New Password</label>
-                                        <input type="password" id="confirm_new_password" class="form-control" name="confirm_new_password" placeholder="********" required>
-                                    </div>
-
-                                    <div id="password-match-feedback" class="form-text text-danger" style="font-size: 14px;"></div>
-                                </form>
+                                    <!-- JavaScript for live image preview -->
+                                    <script>
+                                        function previewProfilePic(event, previewId) {
+                                            var file = event.target.files[0];  // Get the selected file
+                                            if (file) {
+                                                var reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    // Set the src of the img element to the previewed file
+                                                    document.getElementById(previewId).src = e.target.result;
+                                                };
+                                                reader.readAsDataURL(file);  // Read the file as a data URL
+                                            }
+                                        }
+                                    </script>
+                                    
+                                    
+                                    
+                               </div>
+                               
                             </div>
-
-                            <!-- Modal Footer -->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" form="change-password-form" id="submitBtn" class="btn btn-primary" disabled>Update</button>
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 
-
-  
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function previewImage(input, previewId) {
         const file = input.files[0];
@@ -413,6 +448,119 @@
     document.getElementById('idBackInput').addEventListener('change', function () {
         previewImage(this, 'previewBack');
     });
+
+    console.log("Password change");
+
+
+
+$(document).ready(function () {
+    function toggleSubmitButton() {
+        const isCurrentPasswordValid = $('#password-feedback').text() === 'Password is correct';
+        const newPassword = $('#new_password').val().trim();
+        const confirmPassword = $('#confirm_new_password').val().trim();
+        const doPasswordsMatch = newPassword === confirmPassword && newPassword !== '';
+
+        const shouldEnable = isCurrentPasswordValid && doPasswordsMatch;
+
+        $('#submitBtn').prop('disabled', !shouldEnable);
+
+    
+        if (!doPasswordsMatch && newPassword !== '' && confirmPassword !== '') {
+            $('#password-match-feedback').text('Passwords do not match').css('color', 'red');
+        } else {
+            $('#password-match-feedback').text('');
+        }
+    }
+
+    $('#current_password').on('keyup', function () {
+        var currentPassword = $(this).val();
+
+        if (currentPassword.trim() !== '') {
+            $.ajax({
+                url: "{% url 'base:update_password' %}", 
+                type: 'POST',
+                data: {
+                    'current_password': currentPassword,
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                },
+                success: function (response) {
+                    if (response.status === 'success') {
+                        $('#password-feedback').text('Password is correct').css('color', 'green');
+                        $('#new_password').closest('.single-form').show();
+                        $('#confirm_new_password').closest('.single-form').show();
+                        toggleSubmitButton();
+                    } else if (response.status === 'error') {
+                        $('#password-feedback').text('Invalid password').css('color', 'red');
+                        $('#new_password').closest('.single-form').hide();
+                        $('#confirm_new_password').closest('.single-form').hide();
+                        toggleSubmitButton();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('#password-feedback').text('An error occurred').css('color', 'red');
+                    $('#new_password').closest('.single-form').hide();
+                    $('#confirm_new_password').closest('.single-form').hide();
+                    toggleSubmitButton();
+                }
+            });
+        } else {
+            $('#password-feedback').text('');
+            $('#new_password').closest('.single-form').hide();
+            $('#confirm_new_password').closest('.single-form').hide();
+            toggleSubmitButton();
+        }
+    });
+
+    $('#new_password, #confirm_new_password').on('keyup', function () {
+        toggleSubmitButton();
+    });
+
+
+    $('#new_password').closest('.single-form').hide();
+    $('#confirm_new_password').closest('.single-form').hide();
+    $('#submitBtn').prop('disabled', true);
+});
+
+
+$(document).ready(function () {
+    $('#submitBtn').on('click', function (event) {
+        event.preventDefault();  
+        
+        const newPassword = $('#new_password').val().trim();  
+        
+        $.ajax({
+            url: "{% url 'base:submit_change_password' %}", 
+            type: 'POST',
+            data: {
+                'new_password': newPassword,  
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(), 
+            },
+            success: function (response) {
+                console.log(response.message);  
+                
+        
+                if (response.message === 'Password updated successfully') {
+                   
+                    $('#password-feedback').html(
+                        '<p style="font-size: 18px; font-weight: bold; color: green;">Password has been changed successfully.</p>' +
+                        '<p style="font-size: 16px; color: orange;">You will be logged out shortly.</p>'
+                    );
+                    
+                    setTimeout(function () {
+                        window.location.href = '/user_logout/';  
+                    }, 10000);  
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Error:", error);  
+                $('#password-feedback').text('An error occurred. Please try again.').css('color', 'red');
+            }
+        });
+    });
+});
+
+
+
 </script>
 {% endblock %}
 
