@@ -1,9 +1,9 @@
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
 from base.models import Employee
 from django.contrib import messages
 
@@ -143,3 +143,22 @@ def update_password(request):
             })
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+
+def update_profile_pic(request):
+    if request.method == 'POST':
+        user = request.user.id
+        profile_picture = request.POST.get('profile_picture')
+        get_empl = Employee.objects.get(user_id = user)
+
+        if get_empl:
+            get_empl.profile_picture = profile_picture
+            get_empl.save()
+
+            messages.info(request, 'Profile Picture Updated Successfully.')
+            return redirect('frontend:user_profile')
+
+        else:
+            
+            messages.info(request, 'Error Updating Profile Picture.')
+            return redirect('frontend:user_profile')

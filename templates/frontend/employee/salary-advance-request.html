@@ -4,80 +4,206 @@
 <div class="page-content">
     <div class="container-fluid">
 
-        <!-- start page title -->
-        <div class="row">
+       <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Salary Advance</h4>
 
-             
-            {% if messages %}
-            {% for message in messages %}
-                <div class="alert 
-                    {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% elif message.tags == 'warning' %}alert-warning{% else %}alert-secondary{% endif %}" 
-                    role="alert">
-                    {{ message }}
-                </div>
-                {% endfor %}
-            {% endif %}
+                    <ul class="nav nav-pills bg-light rounded" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active bg-success" data-bs-toggle="tab" href="#buy-tab" role="tab">Salary Advance</a>
+                        </li>
+                       
+                    </ul>
 
-
-            <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Apply For Salary Advance</h4>
-
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                            <li class="breadcrumb-item active">Salary Advance Request</li>
-                        </ol>
+                    <div class="tab-content mt-4" style="min-height: 340px;">
+                        <div class="tab-pane active" id="buy-tab" role="tabpanel">
+                            
+                            {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert 
+                                    {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% elif message.tags == 'warning' %}alert-warning{% else %}alert-secondary{% endif %}" 
+                                    role="alert">
+                                    {{ message }} 
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                            
+                            <div>
+                                <form action="{% url 'base:salary_advance_request'  %}" method="POST" class="needs-validation" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Salary Advance Request</h4>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="mb-3">
+                                                                <label for="amountNeeded" class="form-label">Amount Needed</label>
+                                                                <input type="number" name="amount" class="form-control" id="amountNeeded" placeholder="Enter amount needed" required>
+                                                                <div class="invalid-feedback">
+                                                                    Please provide a valid amount.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="col-md-12">
+                                                            <div class="mb-3">
+                                                                <label for="reason" class="form-label">Reason</label>
+                                                                <textarea name="reason" class="form-control" id="reason" rows="3" placeholder="Enter reason for salary advance" required></textarea>
+                                                                <div class="invalid-feedback">
+                                                                    Please provide a valid reason.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="mb-3 my-3">
+                                                            <button class="btn btn-success mx-3"> Submit </button>
+                                                        </div>
+                        
+                                                    </div>
+                        
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                      
                     </div>
-
                 </div>
             </div>
         </div>
-        <!-- end page title -->
-
-        <form action="{% url 'base:salary_advance_request'  %}" method="POST" class="needs-validation" novalidate>
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Salary Advance Request</h4>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label for="amountNeeded" class="form-label">Amount Needed</label>
-                                        <input type="number" name="amount" class="form-control" id="amountNeeded" placeholder="Enter amount needed" required>
-                                        <div class="invalid-feedback">
-                                            Please provide a valid amount.
-                                        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Salary Advance Tips</h4>
+        
+                    <ul class="list-group" data-simplebar style="max-height: 390px;">
+                        <li class="list-group-item border-0">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar-xs">
+                                        
+                                        {% comment %}                                            
+                                        <span class="avatar-title rounded-circle bg-light">
+                                            <img src="{% static 'assets/images/companies/img-1.png' %}" alt="" height="18">
+                                        </span>
+                                        {% endcomment %}
                                     </div>
                                 </div>
-
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label for="reason" class="form-label">Reason</label>
-                                        <textarea name="reason" class="form-control" id="reason" rows="3" placeholder="Enter reason for salary advance" required></textarea>
-                                        <div class="invalid-feedback">
-                                            Please provide a valid reason.
-                                        </div>
-                                    </div>
+                                <div class="flex-grow-1">
+                                    <h5 class="font-size-14">Eligibility for Salary Advance</h5>
+                                    <p class="text-muted">Employees can request a salary advance if they have worked for at least 6 months.</p>
+        
                                 </div>
-
-                                <div class="mb-3 my-3">
-                                    <button class="btn btn-primary mx-3"> Submit </button>
-                                </div>
-
                             </div>
-
-                        </div>
-                    </div>
-                </div> 
+                        </li>
+                        
+                        <li class="list-group-item border-0">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar-xs">
+                                        <span class="avatar-title rounded-circle bg-light">
+                                            <img src="assets/images/companies/img-2.png" alt="" height="18">
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-grow-1">
+                                    <h5 class="font-size-14">Maximum Salary Advance</h5>
+                                    <p class="text-muted">The maximum advance allowed is 50% of the current month's salary.</p>
+        
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item border-0">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar-xs">
+                                        <span class="avatar-title rounded-circle bg-light">
+                                            <img src="assets/images/companies/img-3.png" alt="" height="18">
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-grow-1">
+                                    <h5 class="font-size-14">Repayment Terms</h5>
+                                    <p class="text-muted">Salary advances must be repaid within 3 months through payroll deductions.</p>
+        
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item border-0">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar-xs">
+                                        <span class="avatar-title rounded-circle bg-light">
+                                            <img src="assets/images/companies/img-4.png" alt="" height="18">
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-grow-1">
+                                    <h5 class="font-size-14">Approval Process</h5>
+                                    <p class="text-muted">All salary advances must be approved by the HR and Finance departments.</p>
+        
+                                   
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item border-0">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar-xs">
+                                        <span class="avatar-title rounded-circle bg-light">
+                                            <img src="assets/images/companies/img-5.png" alt="" height="18">
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-grow-1">
+                                    <h5 class="font-size-14">Interest and Fees</h5>
+                                    <p class="text-muted">No interest is charged on salary advances, but late repayment may result in penalties.</p>
+        
+                                   
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item border-0">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar-xs">
+                                        <span class="avatar-title rounded-circle bg-light">
+                                            <img src="assets/images/companies/img-6.png" alt="" height="18">
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-grow-1">
+                                    <h5 class="font-size-14">How to Apply</h5>
+                                    <p class="text-muted">To request a salary advance, submit a formal application to the HR department.</p>
+        
+                                   
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </form>
-
+        </div>
+        
+        
+       </div>
     </div> <!-- container-fluid -->
 </div>
-<!-- End Page-content -->
 
 <div class="page-content">
     <div class="container-fluid">   
