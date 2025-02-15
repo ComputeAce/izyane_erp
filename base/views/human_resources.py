@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from base.utils import generate_username, generate_password
+from notification.views import send_mail_new_employee
 from django.contrib.auth.models import User
 from django.contrib import messages
 from base.models import Employee
@@ -84,7 +85,8 @@ def create_employee(request):
             id_front=id_front,  
             id_back=id_back
         )
-
+        
+        send_mail_new_employee(email, username, password)
         messages.success(request, "Employee created successfully!")
         return redirect("frontend:add_employee")
 

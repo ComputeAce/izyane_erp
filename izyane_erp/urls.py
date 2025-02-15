@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('frontend.urls')),
     path('base/', include('base.urls')),
+    path('notification/', include('notification.urls'))
 ]
 
 handler404 = 'frontend.views.base_views.error_404'

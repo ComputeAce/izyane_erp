@@ -14,7 +14,7 @@ class Employee(models.Model):
     first_name = models.CharField(max_length=100)
     middle_name = models.CharField(max_length=100, blank=True, null=True)
     email = models.CharField(max_length=100, blank=True, null=True)
-    last_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)  
 
     PROVINCE_CHOICES = [
         ('Central', 'Central'),
