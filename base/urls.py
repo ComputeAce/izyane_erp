@@ -2,6 +2,11 @@ from django.urls import path
 from .views.base_views import (
     login,
     user_logout,
+    update_profile,
+    update_password,
+    update_profile_pic,
+    submit_change_password,
+    
 
 )
 
@@ -11,7 +16,9 @@ from .views.human_resources import (
 
 from .views.employees_view import (
     leave_request,
-    salary_advance_request
+    salary_advance_request,
+    home_leave_request,
+    home_salary_advance_request
 
 )
 
@@ -25,6 +32,10 @@ urlpatterns = [
     #base
     path('login', login, name='login'),
     path('user_logout/', user_logout, name='user_logout'),
+    path('update_profile/', update_profile, name='update_profile'),
+    path('submit_change_password/', submit_change_password, name='submit_change_password'),
+    path('update_password/', update_password, name='update_password'),
+    path('update_profile_pic/', update_profile_pic, name='update_profile_pic'),
 
     #HR
     path('create_employee/', create_employee, name='create_employee'),
@@ -33,6 +44,11 @@ urlpatterns = [
     #Employee
     path('leave_request/', leave_request, name='leave_request'),
     path('salary_advance_request/', salary_advance_request, name='salary_advance_request'),
+
+    #Employee_Home
+    path('home_leave_request/', home_leave_request, name='home_leave_request'),
+    path('home_salary_advance_request/', home_salary_advance_request, name='home_salary_advance_request'),
+    
 
 
     #Admin

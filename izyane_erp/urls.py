@@ -24,3 +24,6 @@ urlpatterns = [
     path('', include('frontend.urls')),
     path('base/', include('base.urls')),
 ]
+
+handler404 = 'frontend.views.base_views.error_404'
+handler500 = 'frontend.views.base_views.error_500'

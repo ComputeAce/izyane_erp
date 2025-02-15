@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.urls import path
+from django.conf.urls.static import static
 from frontend.views.base_views import (
     login,
     home,
@@ -43,11 +45,15 @@ urlpatterns = [
     path('all-salary-advance/', salary_advance, name='salary_advance'),
     path('all-users/', users, name='users'),
     path('roles/', roles, name='roles'),
-    path('profile/<int:id>/', profile, name='profile'),
+    path('profile/<int:idk>/', profile, name='profile'),
     path('leave-request/', leave_request, name='leave_request'),
     path('leave-commutation/', leave_commutation, name='leave_commutation'),
     path('salary-advance-request/', salary_advance_request, name='salary_advance_request'),
     path('salary-advance-view/<int:id>/', salary_advance_view, name='salary_advance_view'),
     path('leave-view/<int:id>/', leave_view, name='leave_view'),
     path('user-profile/', user_profile, name='user_profile')
+    
 ]
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)

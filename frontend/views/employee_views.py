@@ -12,11 +12,12 @@ def leave_request(request):
     }   
     return render(request, 'frontend/employee/leave-request.html', context)
 
-
+@login_required(login_url='frontend:login')
 def leave_commutation(request):
     return render(request, 'frontend/employee/leave-commutation.html')
 
 
+@login_required(login_url='frontend:login') 
 def salary_advance_request(request):
     employee = request.user.employee
 
